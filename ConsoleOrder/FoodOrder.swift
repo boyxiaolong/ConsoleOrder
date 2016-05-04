@@ -72,13 +72,12 @@ class OrderOperation {
         var optionalShowStr: String?
             switch curOperation {
             case .ReadyOrder:
-                optionalShowStr = "RedayOrder input Y to continue or N to reject:"
+                optionalShowStr = "RedayOrder input y to continue:"
             case .BeginToOrder(let isBegin):
                 switch isBegin {
-                case "Yes":
+                case "y":
                     var tmpShowStr = "Please choose your location:"
                     let nameArr = foods.getZonesNames()
-                    print(nameArr)
                     for name in nameArr {
                         tmpShowStr += name + " "
                     }
@@ -88,15 +87,17 @@ class OrderOperation {
                 }
             case .ChooseLocation(let location):
                 //数组足够小，所以此处无需考虑效率影响
-            let opRestutantDesArray = foods.getZoneRestanurant(location)
-            if let restutantDesArray = opRestutantDesArray {
-                var tmpStr = "pls choose reatuant:"
-                for restutant in restutantDesArray {
-                    tmpStr + "\n" + restutant
+                let opRestutantDesArray = foods.getZoneRestanurant(location)
+                if let restutantDesArray = opRestutantDesArray {
+                    var tmpStr = "pls choose reatuant:"
+                    for restutant in restutantDesArray {
+                        tmpStr += "\n" + restutant
+                    }
+                    print(tmpStr)
+                    optionalShowStr = tmpStr
+                }else {
+                    print("not find \(location)")
                 }
-                
-                optionalShowStr = tmpStr
-            }
             case .ChooseReatutant(let retautantStr):
                 switch retautantStr {
                 case "A", "B", "C":
@@ -121,6 +122,7 @@ class OrderOperation {
     
     func clientToInput(opInput: String?) -> String? {
         if let input = opInput {
+            print(input, self.curOperation)
             switch curOperation {
             case .ReadyOrder:
                 self.curOperation = .BeginToOrder(input)

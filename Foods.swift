@@ -29,8 +29,6 @@ struct AllZones {
                     print("json error")
                 }
                 
-                print("add zone \(i) with restautantsCount \(zone.restautantArray.count)")
-                
                 self.zoneArray.append(zone)
             }
             catch {
@@ -89,7 +87,6 @@ struct Restaurant {
             let restaurantFood = RestaurantFood(data: subJsonData)
             foodsArray.append(restaurantFood)
         }
-        //print("\(self.name) load \(self.foodsArray.count)")
     }
     
     func desption() -> String {
