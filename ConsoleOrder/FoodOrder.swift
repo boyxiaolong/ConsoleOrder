@@ -78,6 +78,7 @@ class OrderOperation {
                 case "Yes":
                     var tmpShowStr = "Please choose your location:"
                     let nameArr = foods.getZonesNames()
+                    print(nameArr)
                     for name in nameArr {
                         tmpShowStr += name + " "
                     }

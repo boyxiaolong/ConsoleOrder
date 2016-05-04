@@ -11,7 +11,7 @@ import SwiftyJSON
 
 struct AllZones {
     var zoneArray: Array<Zone> = []
-    func loadFile(fileName: String) {
+    mutating func loadFile(fileName: String) {
         for i in 1...3 {
             var zone = Zone()
             zone.zoneIndex = i
@@ -30,6 +30,8 @@ struct AllZones {
                 }
                 
                 print("add zone \(i) with restautantsCount \(zone.restautantArray.count)")
+                
+                self.zoneArray.append(zone)
             }
             catch {
                 print(error)
