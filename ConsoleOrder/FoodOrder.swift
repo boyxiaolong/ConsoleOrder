@@ -93,7 +93,6 @@ class OrderOperation {
                     for restutant in restutantDesArray {
                         tmpStr += "\n" + restutant
                     }
-                    print(tmpStr)
                     optionalShowStr = tmpStr
                 }else {
                     print("not find \(location)")
