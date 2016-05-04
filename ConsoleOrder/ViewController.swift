@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         let opResText = self.orderOp.clientToInput(text)
         if let res = opResText {
             self.showText.text = res
+            self.inputText.text = ""
         }
     }
     override func didReceiveMemoryWarning() {

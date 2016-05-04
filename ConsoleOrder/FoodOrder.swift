@@ -121,17 +121,20 @@ class OrderOperation {
     
     func clientToInput(opInput: String?) -> String? {
         if let input = opInput {
-            do {
-                try checkIsValidInput(input)
+            switch curOperation {
+            case .ReadyOrder:
                 self.curOperation = .BeginToOrder(input)
-                return onStateChange()
-            } catch OrderOperationError.InvalidInput {
-                print("pls input right choose \(input)")
-            } catch OrderOperationError.NilValidSet {
-                print("return to last op")
-            } catch {
-                print("internal error happen, sorry!")
+            case .BeginToOrder:
+                self.curOperation = .ChooseLocation(input)
+            case .ChooseLocation:
+                self.curOperation = .ChooseReatutant(input)
+            case .ChooseReatutant:
+                self.curOperation = .ChooseFoods(input)
+            default:
+                print("clientToInput not handler")
             }
+            
+            return onStateChange()
         }
         
         return nil
