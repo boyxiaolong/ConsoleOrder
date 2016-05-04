@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct AllZones {
     var zoneArray: Array<Zone> = []
