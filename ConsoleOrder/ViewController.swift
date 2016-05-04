@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        print("begin to load")
         var zones = AllZones()
         zones.loadFile("/waimai_chaoren_json_data.txt")
     }

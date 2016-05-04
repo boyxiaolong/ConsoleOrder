@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "EBA13A952984C86648FD44D41BDC5F0F772102DD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EBA13A952984C86648FD44D41BDC5F0F772102DD" : 0,
+    "5A397EC634C0B23C722448E123D4775B645177CE" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "4CC9E139-782A-4319-891F-7BCC0BFA2F90",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EBA13A952984C86648FD44D41BDC5F0F772102DD" : "ConsoleOrder\/",
+    "5A397EC634C0B23C722448E123D4775B645177CE" : "FoodOrder\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ConsoleOrder",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ConsoleOrder.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/boyxiaolong\/FoodOrder.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5A397EC634C0B23C722448E123D4775B645177CE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/boyxiaolong\/ConsoleOrder.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EBA13A952984C86648FD44D41BDC5F0F772102DD"
+    }
+  ]
+}
