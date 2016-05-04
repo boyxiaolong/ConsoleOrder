@@ -118,24 +118,28 @@ class OrderOperation {
         return optionalShowStr
     }
     
-    func clientToInput(opInput: String?)  {
+    func clientToInput(opInput: String?) -> String? {
         if let input = opInput {
             do {
                 try checkIsValidInput(input)
+                self.curOperation = .BeginToOrder(input)
+                return onStateChange()
             } catch OrderOperationError.InvalidInput {
-                print("pls input right choose")
+                print("pls input right choose \(input)")
             } catch OrderOperationError.NilValidSet {
                 print("return to last op")
             } catch {
                 print("internal error happen, sorry!")
             }
         }
+        
+        return nil
     }
     
     func checkIsValidInput(input: String) throws {
         switch curOperation {
         case .ReadyOrder, .ChooseEnd:
-            if input != "Yes" || input != "No" {
+            if input != "Yes" && input != "No" {
                 throw OrderOperationError.InvalidInput
             }
         default:

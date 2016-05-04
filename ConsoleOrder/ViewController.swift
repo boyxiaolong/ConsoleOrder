@@ -24,7 +24,10 @@ class ViewController: UIViewController {
 
     @IBAction func sureButtonTapped(sender: UIButton) {
         let text = self.inputText.text
-        self.orderOp.clientToInput(text)
+        let opResText = self.orderOp.clientToInput(text)
+        if let res = opResText {
+            self.showText.text = res
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
