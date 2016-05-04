@@ -19,12 +19,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         showText.enabled = false
-        showText.text = "是否选择开始订餐"
+        showText.text = self.orderOp.onStateChange()
     }
 
     @IBAction func sureButtonTapped(sender: UIButton) {
         let text = self.inputText.text
-        print(text)
+        self.orderOp.clientToInput(text)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

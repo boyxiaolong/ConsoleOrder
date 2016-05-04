@@ -68,7 +68,7 @@ class OrderOperation {
         }
     }
     
-    func onStateChange() {
+    func onStateChange() -> String? {
         var optionalShowStr: String?
             switch curOperation {
             case .ReadyOrder:
@@ -115,26 +115,20 @@ class OrderOperation {
                 print("other")
             }
 
-        if let showStr = optionalShowStr {
-            print(showStr)
-            clientToInput()
-        }
-        else {
-            onStateChange()
-        }
+        return optionalShowStr
     }
     
-    func clientToInput()  {
-        let input = "test"
-        do {
-            try checkIsValidInput(input)
-        } catch OrderOperationError.InvalidInput {
-            print("pls input right choose")
-            clientToInput()
-        } catch OrderOperationError.NilValidSet {
-            print("return to last op")
-        } catch {
-            print("internal error happen, sorry!")
+    func clientToInput(opInput: String?)  {
+        if let input = opInput {
+            do {
+                try checkIsValidInput(input)
+            } catch OrderOperationError.InvalidInput {
+                print("pls input right choose")
+            } catch OrderOperationError.NilValidSet {
+                print("return to last op")
+            } catch {
+                print("internal error happen, sorry!")
+            }
         }
     }
     
