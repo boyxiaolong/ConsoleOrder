@@ -15,7 +15,7 @@ struct AllZones {
         for i in 1...3 {
             var zone = Zone()
             zone.zoneIndex = i
-            let location = "/Users/allen/maizitech/ConsoleOrder/zone_data" + String(i) + ".txt"
+            let location = fileName + String(i) + ".txt"
             do {
                 let fileContent = try NSString(contentsOfFile: location, encoding: NSUTF8StringEncoding)
                 if let data = fileContent.dataUsingEncoding(NSUTF8StringEncoding) {
@@ -35,6 +35,29 @@ struct AllZones {
                 print(error)
             }
         }
+    }
+    
+    func getZonesNames() -> [String] {
+        var zoneStrArray : [String] = []
+        for item in self.zoneArray {
+            zoneStrArray.append(String(item.zoneIndex))
+        }
+        
+        return zoneStrArray
+    }
+    
+    func getZoneRestanurant(zone: String) -> [String]? {
+        for oneZone in self.zoneArray {
+            if String(oneZone.zoneIndex) == zone {
+                var res: [String]? = []
+                for restautant in oneZone.restautantArray {
+                    res?.append(restautant.desption())
+                }
+                return res
+            }
+        }
+        
+        return nil
     }
 }
 
@@ -64,7 +87,11 @@ struct Restaurant {
             let restaurantFood = RestaurantFood(data: subJsonData)
             foodsArray.append(restaurantFood)
         }
-        print("\(self.name) load \(self.foodsArray.count)")
+        //print("\(self.name) load \(self.foodsArray.count)")
+    }
+    
+    func desption() -> String {
+        return self.name! + " " + String(self.index!) + " " + self.classes! + " " + String(self.totalSellNum!)
     }
 }
 

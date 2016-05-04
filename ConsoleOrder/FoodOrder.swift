@@ -9,9 +9,11 @@
 import Foundation
 
 class OrderOperation {
-    func getInput() -> String {
-        let keyboard = NSFileHandle.fileHandleWithStandardInput()
-        return (String)(NSString(data: keyboard.availableData, encoding: 4)!.stringByReplacingOccurrencesOfString("\n", withString: ""))
+    var foods: AllZones
+    
+    init() {
+        foods = AllZones()
+        foods.loadFile("/Users/allen/maizitech/ConsoleOrder/zone_data")
     }
     
     enum OrderOperationError : ErrorType {
@@ -55,10 +57,6 @@ class OrderOperation {
         }
     }
     
-    init() {
-        
-    }
-    
     var validInput: [String: Set<String>] = [:]
     var lastOperation:FoodOrder = .ReadyOrder
     var curOperation:FoodOrder = .ReadyOrder {
@@ -71,77 +69,83 @@ class OrderOperation {
     }
     
     func onStateChange() {
-        //        var isContinue = false
-        //        if let curOp = curOperation {
-        //            switch curOp {
-        //            case .ReadyOrder:
-        //                print("RedayOrder input Y to continue or N to reject:")
-        //                isContinue = true
-        //            case .BeginToOrder(let isBegin):
-        //                switch isBegin {
-        //                case .Yes:
-        //                    print("Please choose your location:A B C")
-        //                    isContinue = true
-        //                default:
-        //                    curOperation = .ReadyOrder
-        //                    onStateChange()
-        //                }
-        //            case .ChooseLocation(let location):
-        //                switch location {
-        //                case "A", "B", "C":
-        //                    print("Please choose restant : A B C")
-        //                    isContinue = true
-        //                default:
-        //                    print("error")
-        //                }
-        //            case .ChooseReatutant(let retautantNum):
-        //                switch retautantNum {
-        //                case "A", "B", "C":
-        //                    print("choose foods: A B C")
-        //                    isContinue = true
-        //                default:
-        //                    print("error")
-        //                }
-        //            case .ChooseFoods(let food):
-        //                switch food {
-        //                case "A", "B", "C":
-        //                    print("choose foods: A B C")
-        //                    curOperation = lastOperation
-        //                default:
-        //                    print("error")
-        //                }
-        //            default:
-        //                print("other")
-        //            }
-        //        }
-        //
-        //        if isContinue {
-        //            clientToInput()
-        //        }
+        var optionalShowStr: String?
+            switch curOperation {
+            case .ReadyOrder:
+                optionalShowStr = "RedayOrder input Y to continue or N to reject:"
+            case .BeginToOrder(let isBegin):
+                switch isBegin {
+                case "Yes":
+                    var tmpShowStr = "Please choose your location:"
+                    let nameArr = foods.getZonesNames()
+                    for name in nameArr {
+                        tmpShowStr += name + " "
+                    }
+                    optionalShowStr = tmpShowStr
+                default:
+                    curOperation = .ReadyOrder
+                }
+            case .ChooseLocation(let location):
+                //数组足够小，所以此处无需考虑效率影响
+            let opRestutantDesArray = foods.getZoneRestanurant(location)
+            if let restutantDesArray = opRestutantDesArray {
+                var tmpStr = "pls choose reatuant:"
+                for restutant in restutantDesArray {
+                    tmpStr + "\n" + restutant
+                }
+                
+                optionalShowStr = tmpStr
+            }
+            case .ChooseReatutant(let retautantStr):
+                switch retautantStr {
+                case "A", "B", "C":
+                    optionalShowStr = "choose foods: A B C"
+                default:
+                    print("error")
+                }
+            case .ChooseFoods(let food):
+                switch food {
+                case "A", "B", "C":
+                    print("choose foods: A B C")
+                    curOperation = lastOperation
+                default:
+                    print("error")
+                }
+            default:
+                print("other")
+            }
+
+        if let showStr = optionalShowStr {
+            print(showStr)
+            clientToInput()
+        }
+        else {
+            onStateChange()
+        }
     }
     
     func clientToInput()  {
-        //        let input = getInput()
-        //        do {
-        //            try checkIsValidInput(input)
-        //        } catch OrderOperationError.InvalidInput {
-        //            print("pls input right choose")
-        //            clientToInput()
-        //        } catch OrderOperationError.NilValidSet {
-        //            print("return to last op")
-        //        } catch {
-        //            print("internal error happen, sorry!")
-        //        }
+        let input = "test"
+        do {
+            try checkIsValidInput(input)
+        } catch OrderOperationError.InvalidInput {
+            print("pls input right choose")
+            clientToInput()
+        } catch OrderOperationError.NilValidSet {
+            print("return to last op")
+        } catch {
+            print("internal error happen, sorry!")
+        }
     }
     
-    //    func checkIsValidInput(input: String) throws {
-    //        switch curOperation {
-    //        case .ReadyOrder, .ChooseEnd:
-    //            if input != "Yes" || input != "No" {
-    //                throw OrderOperationError.InvalidInput
-    //            }
-    //        case .BeginToOrder:
-    //            //
-    //        }
-    //    }
+    func checkIsValidInput(input: String) throws {
+        switch curOperation {
+        case .ReadyOrder, .ChooseEnd:
+            if input != "Yes" || input != "No" {
+                throw OrderOperationError.InvalidInput
+            }
+        default:
+            print("default")
+        }
+    }
 }
