@@ -98,11 +98,19 @@ class OrderOperation {
                     print("not find \(location)")
                 }
             case .ChooseReatutant(let retautantStr):
-                switch retautantStr {
-                case "A", "B", "C":
-                    optionalShowStr = "choose foods: A B C"
-                default:
-                    print("error")
+                var location: String?
+                if case let FoodOrder.ChooseLocation(location) = self.lastOperation {
+                    var opRes = self.foods.getZoneRestanurants(location)
+                    if let res = opRes {
+                        for item in res {
+                            if String(item.index!) == retautantStr {
+                                print("add right order ", retautantStr)
+                                optionalShowStr = "pls choose foods"
+                                break
+                            }
+                        }
+                    }
+                    
                 }
             case .ChooseFoods(let food):
                 switch food {
@@ -132,7 +140,7 @@ class OrderOperation {
             case .ChooseReatutant:
                 self.curOperation = .ChooseFoods(input)
             default:
-                print("clientToInput not handler")
+                print("clientToInput not handler ")
             }
             
             return onStateChange()

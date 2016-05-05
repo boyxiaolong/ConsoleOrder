@@ -46,6 +46,16 @@ struct AllZones {
         return zoneStrArray
     }
     
+    func getZoneRestanurants(zone: String) -> Array<Restaurant>? {
+        for oneZone in self.zoneArray {
+            if String(oneZone.zoneIndex) == zone {
+                return oneZone.restautantArray
+            }
+        }
+        
+        return nil
+    }
+    
     func getZoneRestanurant(zone: String) -> [String]? {
         for oneZone in self.zoneArray {
             if String(oneZone.zoneIndex) == zone {
