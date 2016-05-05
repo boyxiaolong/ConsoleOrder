@@ -15,16 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var showText: UITextView!
     @IBOutlet weak var finishOrder: UIButton!
     
-    let orderOp: OrderOperation = OrderOperation()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        showText.text = self.orderOp.onStateChange()
+        showText.text = OrderOperation.sharedInstance.onStateChange()
     }
 
     @IBAction func sureBtnTouch(sender: AnyObject) {
         let text = self.inputText.text
-        let opResText = self.orderOp.clientToInput(text)
+        let opResText = OrderOperation.sharedInstance.clientToInput(text)
         if let res = opResText {
             self.showText.text = res
             self.inputText.text = ""
@@ -32,8 +31,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func finishOrderTouch(sender: AnyObject) {
-        if self.orderOp.isHasChooseFoods() {
-            self.showText.text = self.orderOp.getChooseFoodsDes()
+        if OrderOperation.sharedInstance.isHasChooseFoods() {
+            self.showText.text = OrderOperation.sharedInstance.getChooseFoodsDes()
         }
     }
     override func didReceiveMemoryWarning() {

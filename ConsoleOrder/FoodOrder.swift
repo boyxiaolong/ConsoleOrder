@@ -9,9 +9,17 @@
 import Foundation
 
 class OrderOperation {
+    class var sharedInstance: OrderOperation {
+        struct Static {
+            static let instance = OrderOperation()
+        }
+        
+        return Static.instance
+    }
+    
     var foods: AllZones
     
-    init() {
+    private init() {
         foods = AllZones()
         foods.loadFile("/Users/allen/maizitech/ConsoleOrder/zone_data")
     }
