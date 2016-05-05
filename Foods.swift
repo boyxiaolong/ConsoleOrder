@@ -76,7 +76,7 @@ struct Zone {
     var zoneIndex = 0
 }
 
-struct Restaurant {
+class Restaurant {
     let name: String?
     let classes: String?
     let diliverBegin: Int?

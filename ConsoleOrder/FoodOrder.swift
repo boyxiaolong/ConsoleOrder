@@ -67,8 +67,10 @@ class OrderOperation {
             onStateChange()
         }
     }
+    var opRestant: Restaurant?
     
     func onStateChange() -> String? {
+        print("here")
         var optionalShowStr: String?
             switch curOperation {
             case .ReadyOrder:
@@ -105,19 +107,23 @@ class OrderOperation {
                         for item in res {
                             if String(item.index!) == retautantStr {
                                 optionalShowStr = "pls choose foods\n" + item.getAllFoodsDesption()
+                                opRestant = item
                                 break
                             }
                         }
                     }
-                    
                 }
             case .ChooseFoods(let food):
-                switch food {
-                case "A", "B", "C":
-                    print("choose foods: A B C")
-                    curOperation = lastOperation
-                default:
-                    print("error")
+                guard let rest = opRestant else {
+                    print("nil opRestant")
+                    break
+                }
+                
+                for item in rest.foodsArray {
+                    if String(item.index) == food {
+                        print("choose right food \(food)")
+                        break
+                    }
                 }
             default:
                 print("other")
@@ -136,7 +142,7 @@ class OrderOperation {
                 self.curOperation = .ChooseLocation(input)
             case .ChooseLocation:
                 self.curOperation = .ChooseReatutant(input)
-            case .ChooseReatutant:
+            case .ChooseReatutant, .ChooseFoods:
                 self.curOperation = .ChooseFoods(input)
             default:
                 print("clientToInput not handler ")
