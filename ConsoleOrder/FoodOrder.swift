@@ -68,6 +68,7 @@ class OrderOperation {
         }
     }
     var opRestant: Restaurant?
+    var chooseFoodsArray: [RestaurantFood] = []
     
     func onStateChange() -> String? {
         print("here")
@@ -122,6 +123,7 @@ class OrderOperation {
                 for item in rest.foodsArray {
                     if String(item.index) == food {
                         print("choose right food \(food)")
+                        self.chooseFoodsArray.append(item)
                         break
                     }
                 }
@@ -163,5 +165,17 @@ class OrderOperation {
         default:
             print("default")
         }
+    }
+    
+    func isHasChooseFoods() -> Bool {
+        return !self.chooseFoodsArray.isEmpty
+    }
+    
+    func getChooseFoodsDes() -> String {
+        var res : String = ""
+        for item in self.chooseFoodsArray {
+            res += item.desption() + "\n"
+        }
+        return res
     }
 }

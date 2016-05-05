@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputText: UITextField!
     @IBOutlet weak var sureButton: UIButton!
     @IBOutlet weak var showText: UITextView!
+    @IBOutlet weak var finishOrder: UIButton!
     
     let orderOp: OrderOperation = OrderOperation()
     override func viewDidLoad() {
@@ -29,6 +30,14 @@ class ViewController: UIViewController {
             self.inputText.text = ""
         }
     }
+    
+    @IBAction func finishOrderTapped(sender: UIButton) {
+        if self.orderOp.isHasChooseFoods() {
+            self.showText.text = self.orderOp.getChooseFoodsDes()
+        }
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

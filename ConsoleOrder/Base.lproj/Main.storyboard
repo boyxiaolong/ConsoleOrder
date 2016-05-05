@@ -37,13 +37,17 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvg-Zh-Xh4">
-                                <rect key="frame" x="373" y="60" width="60" height="30"/>
+                                <rect key="frame" x="376" y="59" width="60" height="30"/>
                                 <state key="normal" title="结束订单"/>
+                                <connections>
+                                    <action selector="finishOrderTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TZR-wV-SMq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="finishOrder" destination="yvg-Zh-Xh4" id="u2a-VA-wqx"/>
                         <outlet property="inputText" destination="Neg-SU-Fm3" id="pJd-13-3u9"/>
                         <outlet property="showText" destination="D4B-vQ-vPj" id="jvc-31-piu"/>
                         <outlet property="sureButton" destination="WSB-9E-nVN" id="lcp-kZ-Oby"/>
