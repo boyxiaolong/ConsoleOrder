@@ -24,17 +24,6 @@ class OrderOperation {
         foods.loadFile("/Users/allen/maizitech/ConsoleOrder/zone_data")
     }
     
-    enum OrderOperationError : ErrorType {
-        case NilValidSet
-        case InvalidInput
-    }
-    
-    enum YesOrNo{
-        case Yes
-        case No
-        case Invalid
-    }
-    
     enum FoodOrder{
         case ReadyOrder
         case BeginToOrder(String)
@@ -42,10 +31,6 @@ class OrderOperation {
         case ChooseReatutant(String)
         case ChooseFoods(String)
         case ChooseEnd(String)
-        
-        static func getDefaultInputSet() -> Set<String> {
-            return ["Yes", "No"]
-        }
         
         func desption() -> String {
             switch self {
@@ -65,21 +50,17 @@ class OrderOperation {
         }
     }
     
-    var validInput: [String: Set<String>] = [:]
     var lastOperation:FoodOrder = .ReadyOrder
     var curOperation:FoodOrder = .ReadyOrder {
         willSet {
             lastOperation = curOperation
         }
-        didSet {
-            onStateChange()
-        }
     }
+    
     var opRestant: Restaurant?
     var chooseFoodsArray: [RestaurantFood] = []
     
     func onStateChange() -> String? {
-        print("here")
         var optionalShowStr: String?
             switch curOperation {
             case .ReadyOrder:
@@ -162,17 +143,6 @@ class OrderOperation {
         }
         
         return nil
-    }
-    
-    func checkIsValidInput(input: String) throws {
-        switch curOperation {
-        case .ReadyOrder, .ChooseEnd:
-            if input != "Yes" && input != "No" {
-                throw OrderOperationError.InvalidInput
-            }
-        default:
-            print("default")
-        }
     }
     
     func isHasChooseFoods() -> Bool {
