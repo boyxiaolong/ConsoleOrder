@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         showText.text = self.orderOp.onStateChange()
     }
 
-    @IBAction func sureButtonTapped(sender: UIButton) {
+    @IBAction func sureBtnTouch(sender: AnyObject) {
         let text = self.inputText.text
         let opResText = self.orderOp.clientToInput(text)
         if let res = opResText {
@@ -31,13 +31,11 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func finishOrderTapped(sender: UIButton) {
+    @IBAction func finishOrderTouch(sender: AnyObject) {
         if self.orderOp.isHasChooseFoods() {
             self.showText.text = self.orderOp.getChooseFoodsDes()
         }
     }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
