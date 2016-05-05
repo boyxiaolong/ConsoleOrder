@@ -9,6 +9,14 @@
 import Foundation
 import SwiftyJSON
 
+protocol JsonInitProtocol {
+    init(data: JSON)
+}
+
+protocol DescriptionProtocol {
+    func description() -> String
+}
+
 struct AllZones {
     var zoneArray: Array<Zone> = []
     mutating func loadFile(fileName: String) {
@@ -64,7 +72,7 @@ struct AllZones {
             if String(oneZone.zoneIndex) == zone {
                 var res: [String]? = []
                 for restautant in oneZone.restautantArray {
-                    res?.append(restautant.desption())
+                    res?.append(restautant.description())
                 }
                 return res
             }
@@ -79,7 +87,7 @@ struct Zone {
     var zoneIndex = 0
 }
 
-class Restaurant {
+class Restaurant : JsonInitProtocol, DescriptionProtocol{
     let name: String?
     let classes: String?
     let diliverBegin: Int?
@@ -88,7 +96,7 @@ class Restaurant {
     var index: Int?
     var foodsArray: [RestaurantFood] = []
     
-    init(data: JSON) {
+    required init(data: JSON) {
         self.name = data["restrantName"].string
         self.classes = data["classes"].string
         self.index = data["index"].int
@@ -105,20 +113,20 @@ class Restaurant {
         }
     }
     
-    func desption() -> String {
+    func description() -> String {
         return self.name! + " " + String(self.index!) + " " + self.classes! + " " + String(self.totalSellNum!)
     }
     
     func getAllFoodsDesption() -> String {
         var res = ""
         for item in self.foodsArray {
-            res += item.desption() + "\n"
+            res += item.description() + "\n"
         }
         return res
     }
 }
 
-struct RestaurantFood {
+struct RestaurantFood : JsonInitProtocol, DescriptionProtocol {
     var name: String = ""
     var price: Float = 0.0
     var sellNum: Int = 0
@@ -130,7 +138,7 @@ struct RestaurantFood {
         self.sellNum = data["sellNum"].int!
     }
     
-    func desption() -> String {
+    func description() -> String {
         return "\(self.name) \(self.index) \(self.price) \(self.sellNum)"
     }
 }
