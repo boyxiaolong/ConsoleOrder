@@ -102,6 +102,14 @@ struct Restaurant {
     func desption() -> String {
         return self.name! + " " + String(self.index!) + " " + self.classes! + " " + String(self.totalSellNum!)
     }
+    
+    func getAllFoodsDesption() -> String {
+        var res = ""
+        for item in self.foodsArray {
+            res += item.desption() + "\n"
+        }
+        return res
+    }
 }
 
 struct RestaurantFood {
@@ -114,5 +122,9 @@ struct RestaurantFood {
         self.name = data["name"].string!
         self.price = data["price"].float!
         self.sellNum = data["sellNum"].int!
+    }
+    
+    func desption() -> String {
+        return "\(self.name) \(self.index) \(self.price) \(self.sellNum)"
     }
 }

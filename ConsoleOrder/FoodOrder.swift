@@ -104,8 +104,7 @@ class OrderOperation {
                     if let res = opRes {
                         for item in res {
                             if String(item.index!) == retautantStr {
-                                print("add right order ", retautantStr)
-                                optionalShowStr = "pls choose foods"
+                                optionalShowStr = "pls choose foods\n" + item.getAllFoodsDesption()
                                 break
                             }
                         }
