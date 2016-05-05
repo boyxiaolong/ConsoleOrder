@@ -174,7 +174,7 @@ class OrderOperation {
     func getChooseFoodsDes() -> String {
         var res : String = "你的订单如下\n"
         for item in self.chooseFoodsArray {
-            res += item.desption() + "\n"
+            res += item.description() + "\n"
         }
         return res
     }
