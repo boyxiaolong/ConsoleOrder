@@ -20,8 +20,11 @@ struct AllZones {
                 let fileContent = try NSString(contentsOfFile: location, encoding: NSUTF8StringEncoding)
                 if let data = fileContent.dataUsingEncoding(NSUTF8StringEncoding) {
                     let json = JSON(data: data)
+                    var count = 1
                     for (_, subJson) in json {
                         let oneRes = Restaurant(data: subJson)
+                        oneRes.index = count
+                        count = count + 1
                         zone.restautantArray.append(oneRes)
                     }
                 }
@@ -82,7 +85,7 @@ class Restaurant {
     let diliverBegin: Int?
     let deliverConsume: Int?
     let totalSellNum : Int?
-    let index: Int?
+    var index: Int?
     var foodsArray: [RestaurantFood] = []
     
     init(data: JSON) {
@@ -93,8 +96,11 @@ class Restaurant {
         self.deliverConsume = data["deliveryMoney"].int
         self.totalSellNum = data["totalSell"].int
         let subJson = data["restrantFoods"]
+        var count = 1
         for (_, subJsonData) in subJson {
-            let restaurantFood = RestaurantFood(data: subJsonData)
+            var restaurantFood = RestaurantFood(data: subJsonData)
+            restaurantFood.index = count
+            count = count + 1
             foodsArray.append(restaurantFood)
         }
     }
